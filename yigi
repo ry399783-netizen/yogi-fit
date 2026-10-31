@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yogi Fit Collection</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#101010;color:white;font-family:Arial,sans-serif}
+header{background:#080808;padding:22px;text-align:center;border-bottom:2px solid #c9a34a}
+.logo{font-size:27px;font-weight:bold;color:#d8b45b}
+nav{padding:15px;text-align:center}
+nav a{color:#d8b45b;margin:12px;text-decoration:none}
+.hero{text-align:center;padding:65px 15px;background:linear-gradient(120deg,#171717,#3b301b)}
+.hero h1{font-size:36px;color:#e1bd69}
+.hero button,.buy{background:#d8b45b;color:#111;border:0;padding:12px 22px;font-weight:bold;cursor:pointer}
+h2{text-align:center;color:#d8b45b;margin:35px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px;padding:20px}
+.card{background:#202020;border:1px solid #514324;padding:12px;text-align:center;border-radius:9px}
+.card img{width:100%;height:210px;object-fit:cover}
+.price{color:#e4c16e;font-weight:bold}
+.cart{margin:25px;padding:20px;background:#202020;border:1px solid #c9a34a}
+footer{text-align:center;padding:30px;color:#d8b45b}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">YOGI FIT COLLECTION</div>
+<p>STYLE THAT DEFINES YOU</p>
+</header>
+<nav>
+<a href="#home">Home</a>
+<a href="#shop">Shop</a>
+<a href="#cart">My Cart</a>
+</nav>
+<section class="hero" id="home">
+<h1>MEN'S FASHION STORE</h1>
+<p>Discover Your Perfect Style</p>
+<button onclick="document.getElementById('shop').scrollIntoView()">SHOP NOW</button>
+</section>
+<h2 id="shop">TRENDING COLLECTION</h2>
+<div class="products" id="products"></div>
+<section class="cart" id="cart">
+<h2>MY SHOPPING CART</h2>
+<div id="cartitems">Your cart is empty.</div>
+<h3 id="total">Total: ₹0</h3>
+<button class="buy" onclick="checkout()">CHECKOUT</button>
+</section>
+<footer>
+<h3>YOGI FIT COLLECTION</h3>
+<p>Premium Men's Fashion</p>
+<p>© 2026 Yogi Fit Collection</p>
+</footer>
+<script>
+const items=[
+{name:"Oversized Black T-Shirt",price:599,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500"},
+{name:"Premium Casual Shirt",price:899,img:"https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500"},
+{name:"Streetwear Cargo Pants",price:1099,img:"https://images.unsplash.com/photo-1517438476312-10d79c077509?w=500"},
+{name:"Classic Polo T-Shirt",price:699,img:"https://images.unsplash.com/photo-1625910513413-5fc9a9c8f0c5?w=500"},
+{name:"Men's Denim Jeans",price:1199,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=500"},
+{name:"Casual Co-ord Style",price:1499,img:"https://images.unsplash.com/photo-1617137968427-85924c800a22?w=500"}
+];
+let cart=[];
+function showProducts(){
+document.getElementById("products").innerHTML=items.map((p,i)=>`
+<div class="card">
+<img src="${p.img}" alt="${p.name}">
+<h3>${p.name}</h3>
+<p class="price">₹${p.price}</p>
+<button class="buy" onclick="add(${i})">ADD TO CART</button>
+</div>`).join("");
+}
+function add(i){
+cart.push(items[i]);
+showCart();
+}
+function showCart(){
+document.getElementById("cartitems").innerHTML=cart.length?
+cart.map((p,i)=>`${p.name} - ₹${p.price}
+<button onclick="removeItem(${i})">Remove</button><br><br>`).join("")
+:"Your cart is empty.";
+document.getElementById("total").innerText=
+"Total: ₹"+cart.reduce((s,p)=>s+p.price,0);
+}
+function removeItem(i){cart.splice(i,1);showCart();}
+function checkout(){
+if(!cart.length){alert("Please add products first.");return;}
+alert("Demo checkout only. Online payment and order processing will be activated after merchant gateway integration.");
+}
+showProducts();
+</script>
+</body>
+</html>
